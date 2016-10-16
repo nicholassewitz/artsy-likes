@@ -1,0 +1,55 @@
+<% if request.post? && @hotel.invalid? %>
+	<p>Uh oh, <%= pluralize(@hotel.errors.count, 'error') %>!</p>
+	<ul>
+		<% @hotel.errors.full_messages.each do |error| %>
+			<li><%= error %></li>
+		<% end %>
+	</ul>
+<% end %>
+
+<%= form_for(@hotel, html: {multipart: true}) do |f| %>
+	<% if admin? %>
+		<p>
+			<%= f.label(:user) %>
+			<%= f.collection_select(:user_id, User.all, :id, :email) %>
+		</p>
+	<% end %>
+	<% if new_hotel || admin? %>
+		<p>
+			<%= f.label(:name) %>
+			<%= f.text_field(:name, autofocus: true, placeholder: 'Hotel name goes here') %>
+		</p>
+	<% end %>
+	<p>
+		<%= f.label(:description) %>
+		<%= f.text_area(:description) %>
+		<% @hotel.errors[:description].each do |error| %>
+			<div><%= error %></div>
+		<% end %>
+	</p>
+	<p>
+		<%= f.label(:street) %>
+		<%= f.text_field(:street, placeholder: 'Hotel Street') %>
+	</p>
+	<p>
+		<%= f.label(:city) %>
+		<%= f.text_field(:city, placeholder: 'Hotel City') %>
+	</p>
+	<p>
+		<%= f.label(:state) %>
+		<%= f.text_field(:state, placeholder: 'Hotel State') %>
+	</p>
+	<p>
+		<%= f.label(:zip) %>
+		<%= f.text_field(:zip, placeholder: 'Hotel Zip') %>
+	</p>
+	<p>
+		<%= f.label(:country) %>
+		<%= f.text_field(:country, placeholder: 'Hotel Country') %>
+	</p>
+	<p>
+		<%= f.label(:photo) %>
+		<%= f.file_field(:photo) %>
+	</p>
+	<p><%= f.submit('Submit') %></p>
+<% end %>

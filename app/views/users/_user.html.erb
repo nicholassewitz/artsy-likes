@@ -1,0 +1,13 @@
+<div>
+  <h2><%= link_to(user.name, user) %></h2>
+  <p><%= user.email %></p>
+  <p><%= user.headline %></p>
+  <p><%= user.profile %></p>
+  <% if user_signed_in? && current_user.admin? %>
+    <p>Admin: <%= user.admin %></p>
+  <% end %>
+  <% if user_signed_in? %>
+    <p> <%= edit_user_link(user) %></p>
+    <p><%= delete_user_link(user) %></p>
+  <% end %>
+</div>

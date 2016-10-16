@@ -1,12 +1,32 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>ArtsyLikes</title>
+  <title>Artsy Likes</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
+<nav>
+  <% if user_signed_in? %>
+    <p><%= current_user.email %></p>
+    <p><%= link_to('Sign Out', destroy_user_session_path, method: :delete) %></p>
+  <% else %>
+    <p><%= link_to('Log in', new_user_session_path) %></p>
+    <p><%= link_to('Sign up', new_user_registration_path) %></p>
+  <% end %>
+
+  <p><%= link_to('All Users', root_path) %></p>
+  <p><%= link_to('New Users', new_user_path) %></p>
+  <p><%= link_to('All Hotels', hotels_path) %></p>
+  <p><%= link_to('New Hotel', new_hotel_path) %></p>
+  <%= form_tag(search_hotels_path, method: :get) do %>
+    <%= text_field_tag(:query, '', placeholder: 'Search') %>
+  <% end %>
+</nav>
+
+<p class="alert"><%= flash.alert %></p>
+<p class="notice"><%= flash.notice %></p>
 
 <%= yield %>
 
