@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
-  root 'users#index'
+  root 'artworks#index'
   devise_for :users
   resources :users
-  resources :hotels do
+  resources :artworks do
     get('search', on: :collection)
   end
 

@@ -1,0 +1,33 @@
+<% if request.post? && @artwork.invalid? %>
+	<p>Uh oh, <%= pluralize(@artwork.errors.count, 'error') %>!</p>
+	<ul>
+		<% @artwork.errors.full_messages.each do |error| %>
+			<li><%= error %></li>
+		<% end %>
+	</ul>
+<% end %>
+
+<%= form_for(@artwork, html: {multipart: true}) do |f| %>
+	<% if admin? %>
+		<p>
+			<%= f.label(:user) %>
+			<%= f.collection_select(:user_id, User.all, :id, :email) %>
+		</p>
+	<% end %>
+	<% if new_artwork || admin? %>
+		<p>
+			<%= f.label(:name) %>
+			<%= f.text_field(:name, autofocus: true, placeholder: 'Artwork name goes here') %>
+		</p>
+	<% end %>
+	<p>
+		<%= f.label(:description) %>
+		<%= f.text_area(:description) %>
+		<% @hotel.errors[:description].each do |error| %>
+			<div><%= error %></div>
+		<% end %>
+		<%= f.label(:photo) %>
+		<%= f.file_field(:photo) %>
+	</p>
+	<p><%= f.submit('Submit') %></p>
+<% end %>

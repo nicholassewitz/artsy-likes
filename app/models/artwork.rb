@@ -1,16 +1,10 @@
-class Hotel < ApplicationRecord
+class Artwork < ApplicationRecord
   belongs_to :user
 
   validates(:name, presence: {message: 'You must have a name.'}, uniqueness: true)
-  validates(:street, presence: true)
   validates(:user, presence: true)
 
-  geocoded_by :address   # can also be an IP address
-  after_validation :geocode
 
-  def address
-  [street, city, state, zip, country].compact.join(', ')
-  end
 
   has_attached_file(:photo,
                   styles: {thumbnail: '100x100>', full: '300x300>'},
@@ -26,27 +20,27 @@ class Hotel < ApplicationRecord
   after_create(:send_create_push_notification)
 
   def send_create_push_notification
-    puts("Hey, a new hotel titled '#{name}' was posted!")
+    puts("Hey, a new artwork titled '#{name}' was posted!")
   end
 
   after_update(:send_update_push_notification)
 
   def send_update_push_notification
-    puts("The hotel '#{name}' was updated!")
+    puts("The artwork '#{name}' was updated!")
   end
 
-  def self.search(query)
-    where('street LIKE ? OR city LIKE ? OR state LIKE ? OR country LIKE ? OR zip LIKE ?',
-          like(query),
-          like(query),
-          like(query),
-          like(query),
-          like(query))
-  end
+  # def self.search(query)
+  #   where('street LIKE ? OR city LIKE ? OR state LIKE ? OR country LIKE ? OR zip LIKE ?',
+  #         like(query),
+  #         like(query),
+  #         like(query),
+  #         like(query),
+  #         like(query))
+  # end
 
-  def self.like(condition)
-    "%#{condition}%"
-  end
+  # def self.like(condition)
+  #   "%#{condition}%"
+  # end
 
   # def self.near(query, 10, order: :distance)
   # end

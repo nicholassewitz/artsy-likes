@@ -1,0 +1,12 @@
+<div>
+  <h2><%= link_to(artwork.name, artwork) %></h2>
+  <p>By: <%= link_to(artwork.user.email, artwork.user) %></p>
+  <p><%= artwork.description %></p>
+  <p><%= image_tag(artwork.photo.url(:full)) %></p>
+  <% if user_signed_in? %>
+    <% if artwork.user == current_user || current_user.admin? %>
+    <p><%= edit_artwork_link(artwork) %></p>
+    <p><%= delete_artwork_link(artwork) %></p>
+    <% end %>
+  <% end %>
+</div>

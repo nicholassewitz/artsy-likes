@@ -18,9 +18,9 @@
 
   <p><%= link_to('All Users', root_path) %></p>
   <p><%= link_to('New Users', new_user_path) %></p>
-  <p><%= link_to('All Hotels', hotels_path) %></p>
-  <p><%= link_to('New Hotel', new_hotel_path) %></p>
-  <%= form_tag(search_hotels_path, method: :get) do %>
+  <p><%= link_to('All Artworks', artworks_path) %></p>
+  <p><%= link_to('New Artwork', new_artwork_path) %></p>
+  <%= form_tag(search_artworks_path, method: :get) do %>
     <%= text_field_tag(:query, '', placeholder: 'Search') %>
   <% end %>
 </nav>
