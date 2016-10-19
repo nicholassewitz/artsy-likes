@@ -1,8 +1,13 @@
-<div>
+<div class="col-md-4">
   <h2><%= link_to(artwork.name, artwork) %></h2>
   <p>By: <%= link_to(artwork.user.email, artwork.user) %></p>
   <p><%= artwork.description %></p>
+  <% if artwork.photourl? %>
+  <p><%= image_tag(artwork.photourl) %></p>
+  <% end %>
+  <% if artwork.photo? %>
   <p><%= image_tag(artwork.photo.url(:full)) %></p>
+  <% end %>
   <% if user_signed_in? %>
     <% if artwork.user == current_user || current_user.admin? %>
     <p><%= edit_artwork_link(artwork) %></p>
