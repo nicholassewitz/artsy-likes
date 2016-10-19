@@ -13,8 +13,8 @@ class Artwork < ApplicationRecord
                   storage: :s3,
                   s3_region: 'us-east-1',
                   s3_credentials: {bucket: 'artsy-likes',
-                                   access_key_id: 'AKIAIYKWXJSTNDLT56JA',
-                                   secret_access_key: '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'})
+                                   access_key_id: 'ACCESS KEY',
+                                   secret_access_key: 'SECRET'})
   validates_attachment_content_type(:photo, content_type: /\Aimage\/.+\Z/)
 
 
@@ -32,8 +32,8 @@ class Artwork < ApplicationRecord
   end
 
   def self.search(query)
-    client_id = '13d75ce4ae1e79d46953'
-    client_secret = '2019021385bb3050c5f262f771d54fa2'
+    client_id = 'CLIENT ID'
+    client_secret = 'SECRET'
 
     api = Hyperclient.new('https://api.artsy.net/api') do |api|
       api.headers['Accept'] = 'application/vnd.artsy-v2+json'
